@@ -81,9 +81,11 @@ module.exports = function(models, sensorsDrivers, actuatorsDrivers, sequelize) {
 		models.Actuator.findAll()
 			.success(function(actuators){
 				for (var i = 0; i < actuators.length; i++) {
+					var actuator = actuators[i];
 					actuatorsDrivers[actuators[i].type].add(actuators[i].customId, function(err){
-						if (err) { cb(err, actuators[i]); }
-						else { logger.info('<Actuator> ' + actuators[i].name + ' (type: ' + actuators[i].type + ', customId: ' + actuators[i].customId + ') - Ready'); }
+						if (err) { cb(err, actuator); }
+						else { 
+							logger.info('<Actuator> ' + actuator.name + ' (type: ' + actuator.type + ', customId: ' + actuator.customId + ') - Ready'); }
 					});
 				}
 			})
